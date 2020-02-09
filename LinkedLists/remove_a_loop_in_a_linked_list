@@ -1,0 +1,104 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+a = Node("a")
+b = Node("b")
+c = Node("c")
+d = Node("d")
+e = Node("e")
+f = Node("f")
+g = Node("g")
+h = Node("h")
+
+
+a.next = b
+b.next = c
+c.next = d
+d.next = e
+e.next = f
+f.next = g
+g.next = h
+
+
+def print_list(head_node):
+    current = head_node
+    while current is not None:
+        print(current.data)
+        current = current.next
+
+
+def detect_the_loop(head_node):
+    if head_node is None:
+        return False
+    slow = head_node  # jump 1 step
+    fast = head_node.next  # jump 2 step
+    while slow is not None and fast is not None and fast.next is not None:
+        if slow is fast:
+            return True
+        slow = slow.next
+        fast = fast.next.next
+    return False
+
+
+# takes the node where the loop is detected and the head
+def untangle(detected_node, head_node):
+    #   we need to count how many elements is in the loop
+    #   we need to set 2 pointer to the head
+    #   move one pointer with the counted elements
+    #   start moving together the pointers - when they met the last item points back to the list
+    count = 1
+    pointer1 = head_node
+    pointer2 = detected_node
+    while True:
+        count += 1
+        pointer2 = pointer2.next
+        if pointer2.next is detected_node:
+            break
+    pointer2 = head_node
+    while count != 0:
+        count -= 1
+        pointer2 = pointer2.next
+    while True:
+        if pointer1.next is pointer2.next:
+            pointer2.next = None
+            return True
+        pointer1 = pointer1.next
+        pointer2 = pointer2.next
+
+
+def untangle_the_loop(head_node):
+    if head_node is None:
+        return False
+    slow = head_node  # jump 1 step
+    fast = head_node.next  # jump 2 step
+    while slow is not None and fast is not None and fast.next is not None:
+        if slow is fast:
+            # untangle it and return true
+            return untangle(slow, head_node)
+        slow = slow.next
+        fast = fast.next.next
+    return False
+
+
+print("here is the list in order")
+print_list(a)
+print("end")
+print("detect loop")
+print(detect_the_loop(a))
+print("detected end")
+
+# add the loop to the list
+h.next = d
+print("detect loop")
+print(detect_the_loop(a))
+print("detected end")
+
+print("\nuntangle")
+print(untangle_the_loop(a))
+print("print loop")
+print_list(a)
+print("print end")
+
