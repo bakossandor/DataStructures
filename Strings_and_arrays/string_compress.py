@@ -8,10 +8,16 @@
 
 def compress(string):
     new_string = ""
-    previous = string[0]
-    char_counter = 0
-
-
+    pointer = 0
+    while pointer < len(string):
+        char = string[pointer]
+        sub_pointer = pointer + 1
+        counter = 1
+        while sub_pointer < len(string) and string[sub_pointer] == char:
+            counter += 1
+            sub_pointer += 1
+        new_string += (char + str(counter))
+        pointer += counter
     print(new_string)
     if len(new_string) >= len(string):
         return string
@@ -19,5 +25,5 @@ def compress(string):
         return new_string
 
 
-assert compress("aaabbbccccaaaab") == "a3b3c4a3b1", "error"
+assert compress("aaabbbccccaaaab") == "a3b3c4a4b1", "error"
 assert compress("abc") == "abc", "error"
