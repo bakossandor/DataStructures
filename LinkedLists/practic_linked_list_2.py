@@ -72,5 +72,30 @@ def remove_duplicates_without_dict(head):
         current = current.next
     return head
 
-print_list(remove_duplicates_without_dict(LLH))
+# print_list(remove_duplicates_without_dict(LLH))
 # it should print out "a" -> "b" -> "c" -> "d"
+
+
+### second question
+# implement an algorithm which finds the kth element to the last
+# the obvius solution is that count the element and start from the beginning, or if the size of the list known move (size - Kth element)
+# But there is a recursive solution as well
+# The recursive approach would be to recurse until the end, and from the end start to count, if the counter is the number we want, return the data to the top
+
+def return_k_last(head_node, k_minus):
+    if head_node.next is not None:
+        current = return_k_last(head_node.next, k_minus)
+        if isinstance(current, Node):
+            return current
+        if current == k_minus:
+            return head_node
+        else:
+            return current + 1
+    else:
+        return 1
+
+# return_node = return_k_last(LLH, 1)
+# print(return_node.data)
+
+
+
