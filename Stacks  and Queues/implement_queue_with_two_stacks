@@ -1,0 +1,33 @@
+# implement a queue with 2 stacks
+
+class Queue_with_stacks:
+    def __init__(self):
+        self.stack1 = []
+        self.stack2 = []
+
+    def enqueue(self, data):
+        if len(self.stack1) > 0 or (len(self.stack1) == 0 and len(self.stack2) == 0):
+            self.stack1.append(data)
+        else:
+            while len(self.stack2) > 0:
+                self.stack1.append(self.stack2.pop())
+
+    def dequeue(self):
+        if len(self.stack1) == 0 and len(self.stack2) == 0:
+            return None
+        elif len(self.stack1) > 0:
+            while len(self.stack1) > 0:
+                self.stack2.append(self.stack1.pop())
+            return self.stack2.pop()
+        elif len(self.stack1) == 0:
+            return self.stack2.pop()
+
+
+que1 = Queue_with_stacks()
+que1.enqueue(1)
+que1.enqueue(2)
+que1.enqueue(3)
+assert que1.dequeue() == 1, "error"
+assert que1.dequeue() == 2, "error"
+que1.enqueue("what is it")
+assert que1.dequeue() == 3, "error"
