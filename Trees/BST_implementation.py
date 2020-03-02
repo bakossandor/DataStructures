@@ -27,6 +27,19 @@ class Node:
         if self.right_child is not None:
             self.right_child.inorder()
 
+    def postorder(self):
+        if self.right_child is not None:
+            self.right_child.postorder()
+        print(self.data)
+        if self.left_child is not None:
+            self.left_child.postorder()
+
+    def preorder(self):
+        print(self.data)
+        if self.left_child is not None:
+            self.left_child.preorder()
+        if self.right_child is not None:
+            self.right_child.preorder()
 
 class BST:
     def __init__(self):
@@ -44,6 +57,17 @@ class BST:
         else:
             return False
 
+    def postorder(self):
+        if self.root is not None:
+            self.root.postorder()
+        else:
+            return False
+
+    def preorder(self):
+        if self.root is not None:
+            self.root.preorder()
+        else:
+            return False
 
 bst = BST()
 bst.insert(2442)
@@ -54,3 +78,5 @@ bst.insert(8123)
 bst.insert(1)
 bst.insert(723)
 bst.inorder()
+bst.postorder()
+bst.preorder()
