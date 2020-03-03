@@ -1,0 +1,55 @@
+from collections import deque
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.right = None
+        self.left = None
+
+    def inorder(self):
+        if self.left is not None:
+            self.left.inorder()
+        print(self.data)
+        if self.right is not None:
+            self.right.inorder()
+
+    def preorder(self):
+        print(f"data {self.data}")
+        if self.left is not None:
+            print("left-side")
+            self.left.preorder()
+        if self.right is not None:
+            print("right-side")
+            self.right.preorder()
+
+
+def insertFromArray(arr):
+    if arr is None or len(arr) == 0:
+        return None
+    else:
+        middle = len(arr) // 2
+        root = Node(arr[middle])
+        root.left = insertFromArray(arr[:middle])
+        root.right = insertFromArray(arr[middle + 1:])
+        return root
+
+
+def createLinkedLists(rootNode):
+    lists = []
+    queue = deque()
+    queue.appendleft([rootNode, 1])
+    while len(queue) > 0:
+        popped, lvl = queue.pop()
+        if len(lists) < lvl:
+            lists.append([])
+        lists[lvl - 1].append(popped.data)
+        if popped.left is not None:
+            queue.appendleft([popped.left, lvl + 1])
+        if popped.right is not None:
+            queue.appendleft([popped.right, lvl + 1])
+    print(lists)
+
+
+arrToUse = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+bst = insertFromArray(arrToUse)
+createLinkedLists(bst)
