@@ -69,6 +69,12 @@ class BST:
         else:
             return False
 
+    def remove(self, data):
+        if self.root is not None:
+            self.root.remove()
+        else:
+            return False
+
 bst = BST()
 bst.insert(2442)
 bst.insert(23)
