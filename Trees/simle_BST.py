@@ -25,6 +25,16 @@ class Node:
         if self.right is not None:
             self.right.inorder_print()
 
+    def get_height(self):
+        if self.left is None and self.right is None:
+            return 1
+        if self.left is None and self.right is not None:
+            return self.right.get_height() + 1
+        if self.right is None and self.left is not None:
+            return self.left.get_height() + 1
+        else:
+            return max(self.left.get_height(), self.right.get_height()) + 1
+
 class BST:
     def __init__(self):
         self.root = None
@@ -41,13 +51,20 @@ class BST:
         else:
             self.root.inorder_print()
 
+    def get_height(self):
+        if self.root is None:
+            return 0
+        else:
+            return self.root.get_height()
+
 
 bst = BST()
-bst.add(123)
-bst.add(234)
-bst.add(0)
-bst.add(-23)
-bst.add(23123)
+bst.add(1)
 bst.add(2)
-bst.add(231)
+bst.add(3)
+bst.add(4)
+bst.add(5)
+bst.add(6)
+bst.add(7)
 bst.inorder_print()
+print(bst.get_height())
